@@ -1,0 +1,40 @@
+#body{
+
+    background-image: url(https://fondosmil.com/fondo/1819.jpg);
+    background-color: lightcoral;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: auto;
+    
+}
+
+#navbar{
+
+    background-color: lightpink;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+}
+#logo{
+
+    align-items: center;       
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: 3%;
+
+    
+}
+
+#dou{
+
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+
+}
+
+

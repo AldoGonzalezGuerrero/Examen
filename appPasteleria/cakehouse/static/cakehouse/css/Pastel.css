@@ -1,0 +1,77 @@
+#navbar{
+    
+    position: relative;
+    width: 100%;
+    background-color: lightblue;
+    color: black;
+    text-shadow: 1px 1px 1px lightpink;
+    
+}
+
+#body{
+
+    background-image: url(https://fondosmil.com/fondo/1806.jpg);
+    background-color: lightcoral;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: auto;
+
+}
+
+#check1{
+
+    position: relative;
+    top: 10%;
+    left: 35%;
+    max-height: 100%;
+    width: 25%;
+    overflow: auto;
+    margin-top: 2%;
+}
+#check2{
+
+    position: relative;
+    top: 50%;
+    left: 35%;
+    max-height: 100%;
+    width: 25%;
+    overflow: auto;
+    
+}
+#check3{
+
+    position: relative;
+    top: 90%;
+    left: 35%;
+    max-height: 100%;
+    width: 25%;
+    overflow: auto;
+    
+}
+
+#ing{
+
+    position: absolute;
+    right: 20%;
+    top: 135%;
+    width: 50%;
+}
+
+#ing2{
+
+    position: relative;
+    left: 20%;
+    top: 135%;
+    width: 17%;
+    max-width: 100%;
+}
+
+
+
+#footer{
+    position: relative;
+    background-color: lightblue;
+    margin-top: 20%;
+    border-radius: 10px;
+
+}
