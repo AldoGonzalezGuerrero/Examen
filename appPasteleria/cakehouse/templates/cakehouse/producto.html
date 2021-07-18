@@ -1,2 +1,167 @@
-{{ producto }}
-{{ producto.precio}}
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'cakehouse/img/logo.png' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'cakehouse/Producto.css' %}">
+
+    <title>Cake House</title>
+
+
+
+
+
+</head>
+<div class="container" id="banner">
+  <header id="navbar" class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <a href="Home.html" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      {% load static %}<img id="logo" src="{% static 'cakehouse/img/logo.png' %}">
+    </a>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><a href="{% url 'index' %}" class="nav-link px-2 link-dark">Home</a></li>
+      <li><a href="{% url 'catalogo' %}" class="nav-link px-2 link-dark">Productos</a></li>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'perfil' %}" class="nav-link px-2 link-dark">Tu perfil</a></li>
+      <li><a href="{% url 'desloguear' %}" class="nav-link px-2 link-dark">Cerrar sesión</a></li>
+      {% else %}
+      <li><a href="{% url 'loguear' %}" class="nav-link px-2 link-dark">Iniciar sesión</a></li>
+      <li><a href="{% url 'registrarse' %}" class="nav-link px-2 link-dark">Registrarte</a></li>
+      {% endif %}
+    </ul>
+
+    <div class="col-md-3 text-end">
+    </div>
+  </header>
+</div>
+
+
+<body id="body">
+
+<div id="ventana1">
+  <div id="ajuste_ventana1">
+  <h1 style="text-align: center;">Finalizar pedido</h1>
+  <br>
+
+  <div id="pedido" class="card mb-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{% static 'cakehouse/img/torta560.jpg' %}"  width="365" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ producto }}</h5>
+          <p class="card-text">Precio: $ {{ producto.precio}}</p>
+          <p class="card-text">Cantidad restante: {{ producto.cantidad}} unidades.</p>
+          <div >
+          {% if user.is_authenticated %}
+          <button class="btn btn-primary" type="submit">Ir a pagar</button>
+          {% else %}
+          <button class="btn btn-primary" type="submit" disabled>Para comprar, debes iniciar sesión.</button>
+
+          {% endif %}
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <br>
+    <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+<br>
+<br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="footer">
+<footer  class="container py-5">
+    <div class="row">
+      <div class="col-12 col-md">
+        <small class="d-block mb-3 text-muted">&copy; Cake House 2020–2021 Todos los derechos reservados.</small>
+      </div>
+  
+      <div class="col-6 col-md">
+        <h5>Visítenos</h5>
+        <ul class="list-unstyled text-small">
+          <p>Dirección: Pedro de Valdivia #2056, Ñuñoa. <br>
+            Horario de Atención: Lunes a Sábado : 08:30 a 18:00 Hrs. <br>
+            Domingos: 08:30 a 14:00 Hrs.</p>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Síguenos</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="link-secondary" href="#">Instagram</a></li>
+          <li><a class="link-secondary" href="#">Facebook</a></li>
+          <li><a class="link-secondary" href="#">Twitter</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Contactenos</h5>
+        <ul class="list-unstyled text-small">
+          <p>Telefóno: +56258996354 <br>
+            Horario de Atención de Lunes a Domingo : 08:00 a 19:00</p>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/validar.js"></script>
+    
+</body>
+</html>

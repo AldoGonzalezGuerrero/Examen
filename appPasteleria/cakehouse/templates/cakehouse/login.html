@@ -46,46 +46,28 @@
 
   <div id="banner" class="p-3 p-md-5 m-md-3 bg-light">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <h1 class="display-4 fw-normal">Cake House</h1>
-      <p class="lead fw-normal">"Estimados clientes, bienvenidos a nuestra página Cake House. Aquí podrá encontrar la mayor variedad en tortas, tanto en diseño como en sabores con ingredientes de la mejor calidad. Aquí es donde logrará encontrar la torta de sus sueños"</p>
-      
+      <form action="{% url 'autenticacion' %}" method="POST">
+    <h4>Inicio de sesion</h4>
+    {% csrf_token %}
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder="Usuario" name="usuario" required>
+        <label for="floatingInput">Usuario</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Clave" name="clave" required>
+        <label for="floatingPassword">Clave</label>
+      </div>
+      <br>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Iniciar Sesion</button>
+      </div>
+    </div>
+    </form>
     </div>
     <div class="product-device shadow-sm d-none d-md-block"></div>
     <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
   </div>
 
-
-<div class="album py-5 bg-light">
-    <div class="container">
-      <h1 class="display-4 fw-normal" style="text-align: center; margin-bottom: 5%;">¡Ofertas ricas!</h1>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for p in listado_productos %}
-        <div class="col">
-          <div class="card shadow-sm">
-            {% load static %}<img src="{% static 'cakehouse/img/torta560.jpg' %}" class="card-img-top">
-            <div class="card-body">
-          <h5 class="card-title">{{ p.descripcion }}</h5>
-          <p class="card-text">Precio: $ {{p.precio}}</p>
-          <p class="card-text">Fecha de Elaboración: {{p.fecha}}</p>
-          <p class="card-text">Cantidad restante: {{p.cantidad}} unidades.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a href="{% url 'Producto' p.id%}"><button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button></a>
-                  
-                </div>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-          </div>
-      </div>
-    </div>
-  </div>
-
-
-    
 
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

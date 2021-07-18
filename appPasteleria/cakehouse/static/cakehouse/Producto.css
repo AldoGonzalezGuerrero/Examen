@@ -1,0 +1,88 @@
+#body{
+
+    background-image: url(https://fondosmil.com/fondo/1819.jpg);
+    background-color: lightcoral;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: auto;
+    
+}
+
+#navbar{
+
+    background-color: lightpink;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+}
+#logo{
+
+    align-items: center;       
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: 3%;
+
+    
+}
+
+
+#ventana1{
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    border-radius: 10px;
+    
+    background-color: lightcyan;
+    width: 90%;
+    
+    
+
+
+}
+#ajuste_ventana1{
+
+    margin-left: 2%;
+    margin-top: 2%;
+
+}
+
+
+#pedido{
+
+    position: relative;
+    width: 95%;
+
+
+}
+#cantidad{
+
+    position: relative;
+    width: 40%;
+
+}
+#datos{
+
+    position: relative;
+    background-color: lightcyan;
+    margin-top: 3%;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    
+
+}
+
+#footer{
+
+
+    position: relative;
+    background-color: lightpink;
+    border-radius: 10px;
+
+}

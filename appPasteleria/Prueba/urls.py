@@ -18,6 +18,7 @@ from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
 from django.contrib.auth.models import User
 from cakehouse import views
+from cakehouse.models import Producto
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -25,14 +26,25 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'username', 'email', 'is_staff']
 
+
+class ProductoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Producto
+        fields = ['url', 'id', 'descripcion', 'precio', 'cantidad']
+
 # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'products', ProductoViewSet)
 
 urlpatterns = [
     path('cakehouse/', include('cakehouse.urls')),
