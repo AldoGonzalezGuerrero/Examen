@@ -7,6 +7,8 @@ urlpatterns = [
         path('', views.index, name='index'),
         #cakehouse/id_producto
         path('<int:id_producto>/', views.producto, name="Producto"),
+        #cakehouse/pagar
+        path('<int:id_producto>/pagar', views.pagar, name="pagar"),
         #cakehouse/catalogo
         path('catalogo/', views.catalogo, name="catalogo"),
         #cakehouse/loguear
@@ -21,10 +23,14 @@ urlpatterns = [
         path('creacion/', views.creacion, name="creacion"),
         #cakehouse/carrito
         path('carrito/', views.carrito, name="carrito"),
+        #cakehouse/historial
+        path('perfil/historial', views.historial, name="historial"),
         #cakehouse/perfil
         path('perfil/', views.perfil, name="perfil"),
         #cakehouse/editar_perfil
-        path('editar_perfil/', views.edicion, name="edicion")
+        path('perfil/editar', views.edicion, name="edicion"),
+        #cakehouse/cambios
+        path('cambios/', views.cambios, name="cambios"),
 
 ]
 urlpatterns += staticfiles_urlpatterns()

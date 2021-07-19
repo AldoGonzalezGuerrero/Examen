@@ -55,7 +55,7 @@
         {% for p in listado_productos %}
         <div class="col">
           <div class="card shadow-sm">
-            {% load static %}<img src="{% static 'cakehouse/img/torta560.jpg' %}" class="card-img-top">
+            {% load static %}<img src="{{ p.imagen }}" class="card-img-top">
             <div class="card-body">
           <h5 class="card-title">{{ p.descripcion }}</h5>
           <p class="card-text">Precio: $ {{p.precio}}</p>
@@ -63,8 +63,11 @@
           <p class="card-text">Cantidad restante: {{p.cantidad}} unidades.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
+                  {% if p.cantidad > 0%}
                   <a href="{% url 'Producto' p.id%}"><button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button></a>
-                  
+                  {% else %}
+                  <button type="button" class="btn btn-sm btn-outline-secondary" disabled>No Disponible</button>
+                  {% endif %}
                 </div>
                 
               </div>

@@ -62,7 +62,7 @@
         {% for p in listado_productos %}
         <div class="col">
           <div class="card shadow-sm">
-            {% load static %}<img src="{% static 'cakehouse/img/torta560.jpg' %}" class="card-img-top">
+            {% load static %}<img src="{{ p.imagen }}" class="card-img-top">
             <div class="card-body">
           <h5 class="card-title">{{ p.descripcion }}</h5>
           <p class="card-text">Precio: $ {{p.precio}}</p>

@@ -52,7 +52,7 @@
   <div id="pedido" class="card mb-3" >
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="{% static 'cakehouse/img/torta560.jpg' %}"  width="365" alt="...">
+        <img src="{{ producto.imagen }}"  width="365" alt="...">
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -61,7 +61,15 @@
           <p class="card-text">Cantidad restante: {{ producto.cantidad}} unidades.</p>
           <div >
           {% if user.is_authenticated %}
-          <button class="btn btn-primary" type="submit">Ir a pagar</button>
+          <p>El producto se enviará a la dirección de entrega registrada en su perfil.</p>
+          <p>La entrega del producto demorará dependiendo de la distancia desde nuestra tienda.</p>
+          <p>¿No es la dirección que quiere? <a href="{% url 'perfil' %}">Click aquí para ir a su perfil.</a></p>
+          {% if producto.cantidad > 0 %}
+          <a href="{% url 'pagar' producto.id %}"><button class="btn btn-primary" type="submit">Ir a pagar</button></a>
+          {% else %}
+          <button class="btn btn-primary" type="submit" disabled>Producto no disponible.</button>
+          {% endif %}
+          <span>Servicio proporcionado por Banco West.</span>
           {% else %}
           <button class="btn btn-primary" type="submit" disabled>Para comprar, debes iniciar sesión.</button>
 

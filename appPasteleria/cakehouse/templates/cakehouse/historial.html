@@ -45,51 +45,39 @@
   
 
   <div id="banner" class="p-3 p-md-5 m-md-3 bg-light">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <form action="{% url 'cambios' %}" method="POST">
-    <h4>Editar información personal</h4>
-    <p>Si no desea editar un campo, déjelo en blanco.</p>
-    <br>
-    {% csrf_token %}
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Usuario" name="usuario">
-        <label for="floatingInput">Usuario</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingEmail" placeholder="ejemplo@correo.com" name="correo">
-        <label for="floatingEmail">Correo Electrónico</label>
-      </div>
-      <br>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Nombre" name="nombre">
-        <label for="floatingInput">Nombre</label>
-      </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Apellido" name="apellido">
-        <label for="floatingInput">Apellido</label>
-      </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Direccion" name="direccion">
-        <label for="floatingInput">Direccion</label>
-      </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Telefono" name="telefono">
-        <label for="floatingInput">Telefono</label>
-      </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Comuna" name="comuna">
-        <label for="floatingInput">Comuna</label>
-      </div>
-      <br>
-      <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Confirmar cambios</button>
-      </div>
+    <h4>Historial de Compras</h4>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Cantidad pagada</th>
+      <th scope="col">Fecha de Pago</th>
+      <th scope="col">Entregado</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if datos_cliente %}
+    {% for d in datos_cliente %}
+    <tr>
+      <th scope="row">{{d.id}}</th>
+      <td>{{d.producto}}</td>
+      <td>{{d.pago}}</td>
+      <td>{{d.fecha}}</td>
+      <td>{% if d.entregado%} Sí. {% else %} Aún no... {% endif %}</td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+      <th scope="row">1</th>
+      <td>No hay datos</td>
+      <td>No hay datos</td>
+      <td>No hay datos</td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
     </div>
-    </form>
-    </div>
-    <div class="product-device shadow-sm d-none d-md-block"></div>
-    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-  </div>
 
 
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>

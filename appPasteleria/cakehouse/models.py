@@ -5,13 +5,12 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
-
 class Producto(models.Model):
     descripcion = models.CharField(max_length=200, default='')
     fecha = models.DateTimeField("Fecha de elaboracion")
     precio = models.IntegerField(default=0)
     cantidad = models.IntegerField(default=0)
+    imagen = models.CharField(max_length=999, default='')
 
     def __str__(self):
         return self.descripcion
@@ -25,5 +24,12 @@ class Producto(models.Model):
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     direccion = models.CharField(max_length=100, default='Dato no ingresado')
-    telefono = models.IntegerField(default=0)
-    comuna = models.CharField(max_length=50, default='Dato no ingresado')   
+    telefono = models.CharField(max_length=20, default='Dato no ingresado')
+    comuna = models.CharField(max_length=50, default='Dato no ingresado')
+
+class Compra(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=False)
+    producto = models.CharField(max_length=100, default='Vacío')
+    pago = models.IntegerField(default=0)
+    fecha = models.DateTimeField("Fecha de Compra")
+    entregado = models.BooleanField(default=False)

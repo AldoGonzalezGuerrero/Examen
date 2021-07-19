@@ -1,5 +1,6 @@
+
+
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'cakehouse/Home.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'cakehouse/img/logo.png' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'cakehouse/Producto.css' %}">
 
     <title>Cake House</title>
 
@@ -16,8 +18,7 @@
 
 
 </head>
-
-<div class="container">
+<div class="container" id="banner">
   <header id="navbar" class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
     <a href="Home.html" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
       {% load static %}<img id="logo" src="{% static 'cakehouse/img/logo.png' %}">
@@ -40,63 +41,96 @@
   </header>
 </div>
 
+
 <body id="body">
-    
-  
 
-  <div id="banner" class="p-3 p-md-5 m-md-3 bg-light">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <form action="{% url 'cambios' %}" method="POST">
-    <h4>Editar información personal</h4>
-    <p>Si no desea editar un campo, déjelo en blanco.</p>
-    <br>
-    {% csrf_token %}
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Usuario" name="usuario">
-        <label for="floatingInput">Usuario</label>
+<div id="ventana1">
+  <div id="ajuste_ventana1">
+  <h1 style="text-align: center;">¡Gracias por comprar!</h1>
+  <br>
+
+  <div id="pedido" class="card mb-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ producto.imagen }}"  width="365" alt="...">
       </div>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingEmail" placeholder="ejemplo@correo.com" name="correo">
-        <label for="floatingEmail">Correo Electrónico</label>
-      </div>
-      <br>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Nombre" name="nombre">
-        <label for="floatingInput">Nombre</label>
-      </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Apellido" name="apellido">
-        <label for="floatingInput">Apellido</label>
-      </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Direccion" name="direccion">
-        <label for="floatingInput">Direccion</label>
-      </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Telefono" name="telefono">
-        <label for="floatingInput">Telefono</label>
-      </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Comuna" name="comuna">
-        <label for="floatingInput">Comuna</label>
-      </div>
-      <br>
-      <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Confirmar cambios</button>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ producto }}</h5>
+          <p class="card-text">Precio: $ {{ producto.precio}}</p>
+          <p class="card-text">Cantidad restante: {{ producto.cantidad}} unidades.</p>
+          <div >
+          {% if user.is_authenticated %}
+          <p>Ha comprado este producto exitosamente.</p>
+          <p>El producto se enviará a la dirección de entrega registrada en su perfil a la hora de haber realizado la compra.</p>
+          <p>La entrega del producto demorará dependiendo de la distancia desde nuestra tienda.</p>
+          <p>Puede revisar el estado de su entrega en su perfil.</p>
+          <a href="{% url 'perfil' %}"><button class="btn btn-primary" type="submit">Ir a mi perfil</button></a>
+          {% else %}
+          <button class="btn btn-primary" type="submit" disabled>Para comprar, debes iniciar sesión.</button>
+
+          {% endif %}
+        </div>
+        </div>
+
       </div>
     </div>
-    </form>
-    </div>
-    <div class="product-device shadow-sm d-none d-md-block"></div>
-    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
   </div>
+  <br>
+    <br>
 
 
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-</body>
-<footer id="footer" class="container py-5">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+<br>
+<br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="footer">
+<footer  class="container py-5">
     <div class="row">
       <div class="col-12 col-md">
         <small class="d-block mb-3 text-muted">&copy; Cake House 2020–2021 Todos los derechos reservados.</small>
@@ -113,9 +147,9 @@
       <div class="col-6 col-md">
         <h5>Síguenos</h5>
         <ul class="list-unstyled text-small">
-          <li><a class="link-info" href="#">Instagram</a></li>
-          <li><a class="link-info" href="#">Facebook</a></li>
-          <li><a class="link-info" href="#">Twitter</a></li>
+          <li><a class="link-secondary" href="#">Instagram</a></li>
+          <li><a class="link-secondary" href="#">Facebook</a></li>
+          <li><a class="link-secondary" href="#">Twitter</a></li>
         </ul>
       </div>
       <div class="col-6 col-md">
@@ -127,4 +161,11 @@
       </div>
     </div>
   </footer>
+</div>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/validar.js"></script>
+    
+</body>
 </html>
