@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.fields import IntegerField
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
+import datetime
 
 # Create your models here.
 
@@ -32,4 +33,6 @@ class Compra(models.Model):
     producto = models.CharField(max_length=100, default='Vacío')
     pago = models.IntegerField(default=0)
     fecha = models.DateTimeField("Fecha de Compra")
+    despacho = models.DateTimeField(default=datetime.datetime(1900,1,1))
+    entrega = models.DateTimeField(default=datetime.datetime(1900,1,1))
     entregado = models.BooleanField(default=False)

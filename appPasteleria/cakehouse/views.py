@@ -89,6 +89,13 @@ def historial(request):
     return render(request, 'cakehouse/historial.html', context)
 
 @login_required(login_url='loguear')
+def seguimiento(request):
+    usuario = request.user
+    datos_cliente = Compra.objects.filter(user=usuario).order_by('-fecha')[:1]
+    context = {'datos_cliente': datos_cliente}
+    return render(request, 'cakehouse/seguimiento.html', context)
+
+@login_required(login_url='loguear')
 def edicion(request):
     return render(request, 'cakehouse/edicion.html')
 
@@ -135,6 +142,8 @@ def pagar(request, id_producto):
     productito.save()
     #Como ya se hizo la compra, creamos modelo Compra
     usuario = request.user
-    compra = Compra(user=usuario, producto=productito.descripcion, pago=productito.precio, fecha=datetime.datetime.now(), entregado=False)
+    time = datetime.datetime.now() + datetime.timedelta(days=1)
+    time2 = time + datetime.timedelta(hours=1)
+    compra = Compra(user=usuario, producto=productito.descripcion, pago=productito.precio, fecha=datetime.datetime.now(), despacho=time, entrega=time2, entregado=False)
     compra.save()
     return render(request, 'cakehouse/pagar.html', {'producto': productito})
