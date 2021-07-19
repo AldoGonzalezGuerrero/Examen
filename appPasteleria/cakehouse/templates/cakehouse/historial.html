@@ -62,21 +62,24 @@
     <tr>
       <th scope="row">{{d.id}}</th>
       <td>{{d.producto}}</td>
-      <td>{{d.pago}}</td>
+      <td>$ {{d.pago}}</td>
       <td>{{d.fecha}}</td>
       <td>{% if d.entregado%} Sí. {% else %} Aún no... {% endif %}</td>
     </tr>
     {% endfor %}
     {% else %}
     <tr>
-      <th scope="row">1</th>
-      <td>No hay datos</td>
       <td>No hay datos</td>
       <td>No hay datos</td>
     </tr>
     {% endif %}
   </tbody>
 </table>
+      <div class="row">
+        <div class="col-12">
+        <a href="{% url 'purgar' %}"><button type="submit" class="btn btn-danger mb-3">Borrar registros</button></a>
+        </div>
+    </div>
     </div>
 
 

@@ -57,7 +57,19 @@
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">{{ producto }}</h5>
-          <p class="card-text">Precio: $ {{ producto.precio}}</p>
+          {% if perms.cakehouse.subscriptor %}
+            {% if promocion %}
+            <p class="card-text">Precio: $ <s>{{ producto.precio}}</s> {{descuento}} Descuento por subscriptor! (5%) + Descuento por código promocional! ({{promocion}}%)</p>
+            {% else %}
+            <p class="card-text">Precio: $ <s>{{ producto.precio}}</s> {{descuento}} Descuento por subscriptor! (5%)</p>
+            {% endif %}
+          {% else %}
+            {% if promocion %}
+            <p class="card-text">Precio: $ <s>{{ producto.precio}}</s> {{descuento}} Descuento por código promocional! ({{promocion}}%)</p>
+            {% else %}
+            <p class="card-text">Precio: ${{ producto.precio}}</p>
+            {% endif %}
+          {% endif %}
           <p class="card-text">Cantidad restante: {{ producto.cantidad}} unidades.</p>
           <div >
           {% if user.is_authenticated %}

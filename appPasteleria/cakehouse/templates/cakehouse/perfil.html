@@ -103,15 +103,25 @@
       </div>
       <br>
       <div class="row">
-        <div class="col-4">
+        <div class="col-3">
         <a href="{% url 'edicion' %}"><button type="submit" class="btn btn-primary mb-3">Cambiar Información</button></a>
         </div>
-        <div class="col-4">
-        <a href="{% url'seguimiento' %}"><button type="submit" class="btn btn-primary mb-3">Ver seguimiento</button></a>
+        <div class="col-3">
+        <a href="{% url 'seguimiento' %}"><button type="submit" class="btn btn-primary mb-3">Ver seguimiento</button></a>
         </div>
-        <div class="col-4">
+        <div class="col-3">
         <a href="{% url 'historial' %}"><button type="submit" class="btn btn-primary mb-3">Historial de Compras</button></a>
         </div>
+        {% if perms.cakehouse.subscriptor %}
+        <div class="col-3">
+        <a href="{% url 'sub' %}"><button type="submit" class="btn btn-primary mb-3" disabled>Estás suscrito a la Fundación</button></a>
+        </div>
+        {% else %}
+        <div class="col-3">
+        <a href="{% url 'sub' %}"><button type="submit" class="btn btn-primary mb-3">Subscribirse a Fundación</button></a>
+        </div>
+
+        {% endif %}
       </div>
     </div>
     </div>

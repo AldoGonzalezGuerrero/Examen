@@ -16,15 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from cakehouse import views
 from cakehouse.models import Producto
 
 # Serializers define the API representation.
+class GroupSerializer(serializers.ModelSerializer):    
+    class Meta:
+        model = Group
+        fields = ('name',)
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    groups = GroupSerializer(many=True)
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'is_staff']
+        fields = ['url', 'username', 'email', 'is_staff', 'groups']
 
 
 class ProductoSerializer(serializers.HyperlinkedModelSerializer):

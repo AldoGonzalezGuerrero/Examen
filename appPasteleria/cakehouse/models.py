@@ -36,3 +36,12 @@ class Compra(models.Model):
     despacho = models.DateTimeField(default=datetime.datetime(1900,1,1))
     entrega = models.DateTimeField(default=datetime.datetime(1900,1,1))
     entregado = models.BooleanField(default=False)
+
+class Codigo(models.Model):
+    codigo = models.IntegerField(default=0)
+    descripcion = models.CharField(max_length=100, default='Vacío')
+    activo = models.BooleanField(default=False)
+    valor = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.descripcion

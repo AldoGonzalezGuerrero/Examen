@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from .models import Producto, Cliente, Compra
+from .models import Producto, Cliente, Compra, Codigo
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as logineando
 from django.contrib.auth import logout as salirse   
@@ -9,6 +9,7 @@ from django.contrib.auth.models import User, Group
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 import datetime
+import pytz
 #Páginas para todo publico
 def index(request):
     listado_productos = Producto.objects.order_by('-cantidad')[:3]
@@ -18,9 +19,14 @@ def index(request):
 def producto(request, id_producto):
     try:
         productito = Producto.objects.get(pk=id_producto)
+        usuario = request.user
+        context =  {'producto': productito}
+        if usuario.has_perm('cakehouse.subscriptor'):
+            descuento = round(productito.precio * 0.95)
+            context = {'producto': productito, 'descuento': descuento}
     except Producto.DoesNotExist:
         raise Http404("ERROR 404. Página no encontrada. El producto no existe.")
-    return render(request, 'cakehouse/producto.html', {'producto': productito})
+    return render(request, 'cakehouse/producto.html', context)
 
 def catalogo(request):
     listado_productos = Producto.objects.order_by('-cantidad')
@@ -84,7 +90,14 @@ def perfil(request):
 @login_required(login_url='loguear')
 def historial(request):
     usuario = request.user
-    datos_cliente = Compra.objects.filter(user=usuario)
+    datos_cliente = Compra.objects.filter(user=usuario).order_by('-fecha')
+    utc=pytz.UTC
+    now = datetime.datetime.now()
+    now = utc.localize(now)
+    for p in datos_cliente:
+        if p.entrega < now:
+            p.entregado = True
+            p.save()
     context = {'datos_cliente': datos_cliente}
     return render(request, 'cakehouse/historial.html', context)
 
@@ -141,9 +154,43 @@ def pagar(request, id_producto):
         return HttpResponse("ERROR. El producto ya no se encuentra disponible.")
     productito.save()
     #Como ya se hizo la compra, creamos modelo Compra
+    promo = request.POST["promo"]
+    try:
+        codigo = Codigo.objects.get(codigo=promo)
+    except:
+        codigo = None
     usuario = request.user
     time = datetime.datetime.now() + datetime.timedelta(days=1)
     time2 = time + datetime.timedelta(hours=1)
-    compra = Compra(user=usuario, producto=productito.descripcion, pago=productito.precio, fecha=datetime.datetime.now(), despacho=time, entrega=time2, entregado=False)
-    compra.save()
-    return render(request, 'cakehouse/pagar.html', {'producto': productito})
+    if usuario.has_perm('cakehouse.subscriptor'):
+        descuento = round(productito.precio * 0.95)
+        context = {'producto': productito, 'descuento': descuento}
+        if codigo is not None:
+            descuento = round(descuento * (1 - (codigo.valor / 100)))
+            context = {'producto': productito, 'descuento': descuento, 'promocion': codigo.valor}
+        compra = Compra(user=usuario, producto=productito.descripcion, pago=descuento, fecha=datetime.datetime.now(), despacho=time, entrega=time2, entregado=False)
+        compra.save()
+    else:
+        pagar = productito.precio
+        context = {'producto': productito}
+        if codigo is not None:
+            pagar = round(pagar * (1 - (codigo.valor / 100)))
+            context = {'producto': productito, 'descuento':pagar, 'promocion': codigo.valor}
+        compra = Compra(user=usuario, producto=productito.descripcion, pago=pagar, fecha=datetime.datetime.now(), despacho=time, entrega=time2, entregado=False)
+        compra.save()
+    return render(request, 'cakehouse/pagar.html', context)
+
+@login_required(login_url='loguear')
+def sub(request):
+    usuario = request.user 
+    grupo = Group.objects.get(name='Subscriptores')
+    grupo.user_set.add(usuario)
+    usuario.save()
+    return HttpResponseRedirect(reverse('perfil'))
+
+@login_required(login_url='loguear')
+def purgar(request):
+    usuario = request.user
+    datos_cliente = Compra.objects.filter(user=usuario).order_by('-fecha')
+    datos_cliente.delete()
+    return HttpResponseRedirect(reverse('historial'))

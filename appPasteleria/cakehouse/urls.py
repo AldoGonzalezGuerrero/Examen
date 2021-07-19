@@ -25,10 +25,14 @@ urlpatterns = [
         path('carrito/', views.carrito, name="carrito"),
         #cakehouse/perfil/historial
         path('perfil/historial', views.historial, name="historial"),
+        #cakehouse/perfil/historial/purgar
+        path('perfil/historial/purgar', views.purgar, name="purgar"),
         #cakehouse/perfil/seguimiento
         path('perfil/seguimiento', views.seguimiento, name="seguimiento"),
         #cakehouse/perfil
         path('perfil/', views.perfil, name="perfil"),
+        #cakehouse/perfil/sub
+        path('perfil/sub', views.sub, name="sub"),
         #cakehouse/editar_perfil
         path('perfil/editar', views.edicion, name="edicion"),
         #cakehouse/cambios
