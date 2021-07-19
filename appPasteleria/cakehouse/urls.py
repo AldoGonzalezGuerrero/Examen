@@ -21,8 +21,6 @@ urlpatterns = [
         path('registrarse/', views.registrarse, name="registrarse"),
         #cakehouse/creacion_usuario
         path('creacion/', views.creacion, name="creacion"),
-        #cakehouse/carrito
-        path('carrito/', views.carrito, name="carrito"),
         #cakehouse/perfil/historial
         path('perfil/historial', views.historial, name="historial"),
         #cakehouse/perfil/historial/purgar

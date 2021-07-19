@@ -75,10 +75,6 @@ def creacion(request):
     return HttpResponseRedirect(reverse('loguear'))
 
 #Paginas exclusivas de usuarios
-@login_required(login_url='loguear')
-def carrito(request):
-    listado_carrito = 0
-    return render(request, 'cakehouse/carrito.html')
 
 @login_required(login_url='loguear')
 def perfil(request):
